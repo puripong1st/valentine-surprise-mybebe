@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Mitr' rel='stylesheet'>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(45deg, #ffe6e6, #ffb3b3);
+            font-family: 'Mitr', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 800px;
+        }
+
+        .heart {
+            position: relative;
+            width: 100px;
+            height: 90px;
+            margin: 30px auto;
+            animation: heartbeat 1s infinite;
+        }
+
+        .heart:before,
+        .heart:after {
+            position: absolute;
+            content: "";
+            left: 50px;
+            top: 0;
+            width: 50px;
+            height: 80px;
+            background: #ff4d4d;
+            border-radius: 50px 50px 0 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .heart:after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        /* Photo Album Styles */
+        .photo-album {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            margin: 20px auto;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .photo-frame {
+            position: relative;
+            padding: 10px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            transform: rotate(-3deg);
+            transition: transform 0.3s;
+        }
+
+        .photo-frame:nth-child(even) {
+            transform: rotate(3deg);
+        }
+
+        .photo-frame:hover {
+            transform: scale(1.05) rotate(0);
+            z-index: 1;
+        }
+
+        .photo {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .photo-caption {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .message {
+            font-size: 24px;
+            color: #ff1a1a;
+            margin: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .game-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 20px;
+        }
+
+        .memory-game {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+
+        .card {
+            width: 80px;
+            height: 80px;
+            background: #ff8080;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 24px;
+            transition: transform 0.3s;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+            background: white;
+        }
+
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 4s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0); opacity: 1; }
+            100% { transform: translateY(-100px) translateX(100px); opacity: 0; }
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        button {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: #ff4d4d;
+        }
+
+        .memory {
+            margin: 20px 0;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts"></div>
+    
+    <div class="container">
+        <div class="heart"></div>
+        <h1 class="message">สุขสันต์วันวาเลนไทน์</h1>
+        
+        <div class="photo-album">
+            <h2>อัลบั้มความทรงจำของบิบิ๋ ❤️</h2>
+            <div class="photo-grid">
+                <div class="photo-frame">
+                    <img src="https://img5.pic.in.th/file/secure-sv1/18b36ba99407e0dfb.jpg" alt="ความทรงจำของเรา" class="photo">
+                    <div class="photo-caption">ครั้งแรกที่เราเจอกัน</div>
+                </div>
+                <div class="photo-frame">
+                    <img src="https://img2.pic.in.th/pic/20137069605f69c0d.jpg" alt="ความทรงจำของเรา" class="photo">
+                    <div class="photo-caption">วันแรกที่มาดอนเมือง</div>
+                </div>
+                <div class="photo-frame">
+                    <img src="https://img2.pic.in.th/pic/306fbe7aa42f9513c.jpg" alt="ความทรงจำของเรา" class="photo">
+                    <div class="photo-caption">สงกานต์แรกที่เล่นด้วย</div>
+                </div>
+                <div class="photo-frame">
+                    <img src="https://img5.pic.in.th/file/secure-sv1/4e003feb7cc01947b.jpg" alt="ความทรงจำของเรา" class="photo">
+                    <div class="photo-caption">ลิง(แมว)ตัวโปรด</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="special-message" style="display: none;">
+            <p style="font-size: 20px; color: #ff4d4d;">
+                ขอบคุณบิบิ๋ที่อยู่กับเค้ามา ถึงจะทะเลาะกันหนักบ้าง <br>
+                แต่บิบิ๋ก็ยังรักเค้าอยู่<br>
+                รักบิบิ๋นะค้าบ ❤️
+            </p>
+        </div>
+        
+        <button onclick="showMessage()">กดเพื่อดูข้อความพิเศษ</button>
+        
+        <div class="game-container">
+            <h2>เกมจับคู่หัวใจ</h2>
+            <p>จับคู่สัญลักษณ์ที่เหมือนกันให้ครบทุกคู่</p>
+            <div class="memory-game"></div>
+            <button onclick="startGame()">เริ่มเกมใหม่</button>
+        </div>
+    </div>
+
+    <script>
+        // สร้างหัวใจลอย
+        function createFloatingHearts() {
+            const hearts = ['❤️', '💖', '💕', '💗'];
+            const heartsContainer = document.querySelector('.floating-hearts');
+            
+            setInterval(() => {
+                const heart = document.createElement('span');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heartsContainer.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 4000);
+            }, 300);
+        }
+
+        // แสดงข้อความพิเศษ
+        function showMessage() {
+            const message = document.getElementById('special-message');
+            message.style.display = 'block';
+            
+            // เพิ่มเอฟเฟกต์
+            message.style.animation = 'heartbeat 1s infinite';
+        }
+
+        // เกมจับคู่
+        const symbols = ['❤️', '💖', '💕', '💗', '❤️', '💖', '💕', '💗'];
+        let flippedCards = [];
+        let matchedPairs = 0;
+
+        function createCard(symbol, index) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.dataset.symbol = symbol;
+            card.dataset.index = index;
+            card.addEventListener('click', flipCard);
+            return card;
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startGame() {
+            const gameContainer = document.querySelector('.memory-game');
+            gameContainer.innerHTML = '';
+            matchedPairs = 0;
+            flippedCards = [];
+            
+            const shuffledSymbols = shuffleArray([...symbols]);
+            shuffledSymbols.forEach((symbol, index) => {
+                gameContainer.appendChild(createCard(symbol, index));
+            });
+        }
+
+        function flipCard() {
+            if (flippedCards.length === 2) return;
+            if (flippedCards.includes(this)) return;
+            
+            this.textContent = this.dataset.symbol;
+            this.classList.add('flipped');
+            flippedCards.push(this);
+            
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 500);
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            if (card1.dataset.symbol === card2.dataset.symbol) {
+                matchedPairs++;
+                if (matchedPairs === symbols.length / 2) {
+                    alert('ชนะแล้ว แคปหน้านี้เพื่อมารับจุ๊บ ❤️');
+                }
+            } else {
+                card1.textContent = '';
+                card2.textContent = '';
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+            }
+            flippedCards = [];
+        }
+
+        // เริ่มต้นเว็บ
+        createFloatingHearts();
+        startGame();
+    </script>
+</body>
+</html>
